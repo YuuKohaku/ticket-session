@@ -83,6 +83,10 @@ class GraphAddresser {
 		return this.address_table[this.identifier_table[addr]];
 	}
 
+	setLeaf(addr, leaf) {
+
+	}
+
 	isInactive() {
 		let keys = Object.keys(this.address_table),
 			l = keys.length,
@@ -128,26 +132,6 @@ class GraphAddresser {
 
 	updateCallback() {
 		return this._updateCB;
-	}
-
-	to(type = 'picker', data = []) {
-		let desc = this.desc;
-		if (desc.type == type)
-			return this;
-		if (type == 'idle')
-			throw new Error("Cannot transform to leaf what's not a leaf.");
-
-		this.desc = {
-			type: type,
-			data: [this.desc]
-		};
-
-		this.graph.detachObserver(this);
-		this.graph = Factory.build({
-			type: type,
-			data: [this.graph]
-		});
-		this.graph.attachObserver(this);
 	}
 
 	splitBy(splitter) {
