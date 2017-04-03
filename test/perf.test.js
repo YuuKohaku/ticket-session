@@ -3,7 +3,7 @@
 describe.only("PERF", function () {
 	this.timeout(100000);
 	this.slow(0);
-	let iterations = 1000000;
+	let iterations = 100000;
 	console.log("ITERATIONS x %d", iterations)
 		// describe('array ops', function () {
 		// 	let x1, x2, x3, km1 = {},
@@ -120,7 +120,7 @@ describe.only("PERF", function () {
 			}
 		});
 	});
-	describe('filter', function () {
+	describe.only('filter', function () {
 		let x1, x2;
 		beforeEach(function () {
 			x1 = Array(15);
@@ -791,7 +791,7 @@ describe.only("PERF", function () {
 		});
 
 	});
-	describe.only('keyby', function () {
+	describe('keyby', function () {
 		let x1;
 		beforeEach(function () {
 			x1 = Array(150);
@@ -846,6 +846,43 @@ describe.only("PERF", function () {
 				l = k;
 			}
 
+		});
+	});
+	describe.only('join', function () {
+		let x1;
+		beforeEach(function () {
+			x1 = Array(150);
+			x1 = _.map(x1, el => ({
+				val: Math.random()
+			}))
+		});
+
+		it(' lodash ', function () {
+			let res;
+			for (var i = 0; i < iterations; i++) {
+				res = _.join(x1, '.');
+			}
+
+		});
+
+		it('native', function () {
+			let res;
+			for (var i = 0; i < iterations; i++) {
+				res = x1.join(".")
+			}
+
+		});
+		it('while', function () {
+			let res = "",
+				l = x1.length,
+				len = l;
+			for (var i = 0; i < iterations; i++) {
+				res = "";
+				while (l--) {
+					res = x1[l] + (res.length == 0 ? "" : "." + res);
+				}
+				l = len;
+			}
 		});
 	});
 	describe.only('counters', function () {
@@ -908,7 +945,7 @@ describe.only("PERF", function () {
 	})
 
 
-	describe('forEach', function () {
+	describe.only('forEach', function () {
 		let x1, x2;
 
 		function fn(x) {
@@ -928,7 +965,12 @@ describe.only("PERF", function () {
 				_.forEach(x1, fn)
 			}
 		});
-
+		it('lodash map ', function () {
+			let res;
+			for (var i = 0; i < iterations; i++) {
+				_.map(x1, fn)
+			}
+		});
 		it('native', function () {
 			let res;
 			for (var i = 0; i < iterations; i++) {
