@@ -39,7 +39,7 @@ class Session {
 			this.cursor.clear();
 		if (tick.isActive())
 			this.cursor.point(tick);
-		console.log("UPDATE", leaf);
+		// console.log("UPDATE", leaf);
 	}
 
 	from(desc, linkdata) {
