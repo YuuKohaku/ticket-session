@@ -52,6 +52,7 @@ class Session {
 			l = uses.length,
 			addr;
 		while (l--) {
+
 			if (this.graph.hasLeaf(uses[l]) &&
 				this.graph.getLeaf(uses[l])
 				.isActive())
